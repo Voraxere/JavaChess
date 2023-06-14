@@ -2,6 +2,11 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import ImageHandling;
+
 
 public class DrawBoard extends Canvas {
     public static void main(String[] args) {
@@ -11,6 +16,10 @@ public class DrawBoard extends Canvas {
         frame.add(canvas);
         frame.pack();
         frame.setVisible(true);
+
+        // Initialize the black and white pawn images
+        ImageHandling.bPawn = ImageHandling.loadImage("bpawn.png");
+        ImageHandling.wPawn = ImageHandling.loadImage("wpawn.png");
     }
 
     public void paint(Graphics g) {
@@ -30,5 +39,10 @@ public class DrawBoard extends Canvas {
             }
         }
 
+        // Placing the pawns (display images of pawns)
+        for (int i = 0; i < 8; i++){
+            g.drawImage(ImageHandling.bPawn, i*105+5, 5, 100, 100, this);
+            g.drawImage(ImageHandling.wPawn, i*105+5, 5+7*105, 100, 100, this);
+        }
     }
 }
