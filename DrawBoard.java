@@ -2,10 +2,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
-import java.awt.Image;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import ImageHandling;
+import imagehandler.ImageHandling;
 
 
 public class DrawBoard extends Canvas {
@@ -44,5 +41,8 @@ public class DrawBoard extends Canvas {
             g.drawImage(ImageHandling.bPawn, i*105+5, 5, 100, 100, this);
             g.drawImage(ImageHandling.wPawn, i*105+5, 5+7*105, 100, 100, this);
         }
+
+        // this isn't showing any pawns. Why could this be?
+        g.drawImage(ImageHandling.bPawn, 5, 5, 100, 100, this);
     }
 }

@@ -4,13 +4,10 @@ public class Board {
     Board board = new Board();
     int[][] finalBoard = board.createBoard();
 
-    // Print the Matrix
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-        System.out.print(finalBoard[i][j] + "\t");
-      }
-      System.out.println();
-    }
+    board.printBoard(finalBoard);
+    board.movePiece(finalBoard, 1, 0, 3, 0);
+    System.out.println("/n");
+    board.printBoard(finalBoard);
   }
 
   private int[][] createBoard() {
@@ -52,5 +49,38 @@ public class Board {
     board[7][4] = 6;
 
     return board;
+  }
+
+  private int[][] movePiece(int[][] board, int x1, int y1, int x2, int y2) {
+    // Check if the move is valid
+    if (isValidMove(board, x1, y1, x2, y2)) {
+      // Move the piece
+      board[x2][y2] = board[x1][y1];
+      board[x1][y1] = 0;
+    }
+
+    return board;
+  }
+
+  private boolean isValidMove(int[][] board, int x1, int y1, int x2, int y2){
+    return true;
+  }
+
+  private void printBoard(int[][] board) {
+    for (int i = 0; i < board.length; i++) {
+      System.out.print("|");
+      for (int j = 0; j < board[i].length; j++) {
+        System.out.print(board[i][j] + "|");
+      }
+      System.out.println();
+    }
+  }
+
+  private boolean isBlack(int piece) {
+    if (piece > 6) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
