@@ -1,11 +1,12 @@
+import java.util.Scanner;
+
 public class Board {
 
   public static void main(String[] args) {
     Board board = new Board();
     int[][] finalBoard = board.createBoard();
-
+    board.play(finalBoard, 'w');
     board.printBoard(finalBoard);
-    board.movePiece(finalBoard, 1, 0, 3, 0);
     System.out.println("/n");
     board.printBoard(finalBoard);
   }
@@ -51,17 +52,6 @@ public class Board {
     return board;
   }
 
-  private int[][] movePiece(int[][] board, int x1, int y1, int x2, int y2) {
-    // Check if the move is valid
-    if (isValidMove(board, x1, y1, x2, y2)) {
-      // Move the piece
-      board[x2][y2] = board[x1][y1];
-      board[x1][y1] = 0;
-    }
-
-    return board;
-  }
-
   private boolean isValidMove(
     int[][] board,
     char player,
@@ -71,15 +61,14 @@ public class Board {
     int x2,
     int y2
   ) {
-    if (move % 2 == 0) {
-      if (isBlack(board[x1][y1])) {
-        return false;
-      }
-    } else {
-      if (!isBlack(board[x1][y1])) {
-        return false;
-      }
+    //Check if the move is valid just by if it is black or white
+    if (isBlack(board[x1][y1]) && player == 'w') {
+      return false;
+    } else if (!isBlack(board[x1][y1]) && player == 'b') {
+      return false;
     }
+
+    return true;
   }
 
   private void printBoard(int[][] board) {
@@ -102,26 +91,41 @@ public class Board {
 
   private void play(int[][] board, char player) {
     int move = 1;
-    //Write code for this function to call the other functions in a loop
+    Scanner inputs = new Scanner(System.in); // Create the Scanner object outside the loop
     while (true) {
-      //Get the move from the player
-      Scanner inputs = new Scanner(System.in);
+      printBoard(board);
       System.out.println("Enter the x1 coordinate: ");
       int x1 = inputs.nextInt();
+      System.out.println(x1);
+
       System.out.println("Enter the y1 coordinate: ");
       int y1 = inputs.nextInt();
+      System.out.println(y1);
+
       System.out.println("Enter the x2 coordinate: ");
       int x2 = inputs.nextInt();
+      System.out.println(x2);
+
       System.out.println("Enter the y2 coordinate: ");
       int y2 = inputs.nextInt();
-      //Check if the move is valid
+      System.out.println(y2);
+
       if (isValidMove(board, player, move, x1, y1, x2, y2)) {
-        //Move the piece
         board[x2][y2] = board[x1][y1];
         board[x1][y1] = 0;
       }
-      //Check if the game is over
-      //Switch the player
+      else {
+        System.out.println("Invalid Move");
+        System.out.println(player);
+      }
+      // Check if the game is over
+      // Switch the player
+      move++;
+      if (move % 2 == 0) {
+        player = 'b';
+      } else {
+        player = 'w';
+      }
     }
   }
 }
