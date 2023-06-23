@@ -62,8 +62,24 @@ public class Board {
     return board;
   }
 
-  private boolean isValidMove(int[][] board, int x1, int y1, int x2, int y2){
-    return true;
+  private boolean isValidMove(
+    int[][] board,
+    char player,
+    int move,
+    int x1,
+    int y1,
+    int x2,
+    int y2
+  ) {
+    if (move % 2 == 0) {
+      if (isBlack(board[x1][y1])) {
+        return false;
+      }
+    } else {
+      if (!isBlack(board[x1][y1])) {
+        return false;
+      }
+    }
   }
 
   private void printBoard(int[][] board) {
@@ -81,6 +97,31 @@ public class Board {
       return true;
     } else {
       return false;
+    }
+  }
+
+  private void play(int[][] board, char player) {
+    int move = 1;
+    //Write code for this function to call the other functions in a loop
+    while (true) {
+      //Get the move from the player
+      Scanner inputs = new Scanner(System.in);
+      System.out.println("Enter the x1 coordinate: ");
+      int x1 = inputs.nextInt();
+      System.out.println("Enter the y1 coordinate: ");
+      int y1 = inputs.nextInt();
+      System.out.println("Enter the x2 coordinate: ");
+      int x2 = inputs.nextInt();
+      System.out.println("Enter the y2 coordinate: ");
+      int y2 = inputs.nextInt();
+      //Check if the move is valid
+      if (isValidMove(board, player, move, x1, y1, x2, y2)) {
+        //Move the piece
+        board[x2][y2] = board[x1][y1];
+        board[x1][y1] = 0;
+      }
+      //Check if the game is over
+      //Switch the player
     }
   }
 }
